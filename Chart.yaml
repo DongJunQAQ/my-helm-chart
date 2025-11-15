@@ -1,5 +1,5 @@
-apiVersion: v2  # Helm 3推荐使用的版本
-name: myweb
+apiVersion: v2  # 使用Helm 3来安装应用
+name: myweb  # Helm Chart的包名
 description: A Test Helm Chart
 type: application
 version: 0.1.0  # Helm Chart版本号
