@@ -1,0 +1,6 @@
+apiVersion: v2  # Helm 3推荐使用的版本
+name: myweb
+description: A Test Helm Chart
+type: application
+version: 0.1.0  # Helm Chart版本号
+appVersion: "0.1.0"  # 应用程序版本号
