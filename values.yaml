@@ -3,13 +3,19 @@ frontend:
   tag: 'latest'
   autoscaling:
     averageUtilization: 90
+
 backend:
-  image: lyzhang1999/backend
-  tag: 'latest'
+  image: registry.cn-hangzhou.aliyuncs.com/dongjun11/flask-demo
+  tag: 'v0.1.2'
   autoscaling:
     averageUtilization: 90
+
 database:
-  enabled: true
+  enabledPostgre: true  # 是否部署集群内部的数据库
   uri: pg-service
-  username: postgres
-  password: postgres
+  username: "admin"
+  password: "zdj7900802"
+
+postgre:
+  adminUser: "admin"  # 数据库管理员账户
+  adminPassword: "zdj7900802"  # 数据库管理员密码

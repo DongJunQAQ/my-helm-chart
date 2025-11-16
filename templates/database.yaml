@@ -1,4 +1,4 @@
-{{- if .Values.database.enabled -}}
+{{- if .Values.database.enabledPostgre -}}
 apiVersion: v1
 data:
   CreateDB.sql: |-
@@ -36,9 +36,11 @@ spec:
           mountPath: /docker-entrypoint-initdb.d
         env:
           - name: POSTGRES_USER
-            value: "postgres"
+            value: "{{ .Values.postgre.adminUser }}"
           - name: POSTGRES_PASSWORD
-            value: "postgres"
+            value: "{{ .Values.postgre.adminPassword }}"
+          - name: POSTGRES_DB
+            value: "{{ .Values.postgre.dbName }}"
       volumes:
         - name: sqlscript
           configMap:
