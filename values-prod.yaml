@@ -1,0 +1,17 @@
+frontend:
+  image: lyzhang1999/frontend
+  tag: 'latest'
+  autoscaling:
+    averageUtilization: 50
+
+backend:
+  image: registry.cn-hangzhou.aliyuncs.com/dongjun11/flask-demo
+  tag: 'v0.1.2'
+  autoscaling:
+    averageUtilization: 50
+
+database:
+  enabledPostgre: false  # 是否部署集群内部的数据库
+  uri: 192.168.246.188  # 连接外部数据库
+  username: "admin"
+  password: "zdj7900802"
