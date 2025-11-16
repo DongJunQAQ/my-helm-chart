@@ -3,23 +3,24 @@ kind: Ingress
 metadata:
   name: frontend-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/rewrite-target: /$1  # 配置URL重写规则，当请求匹配到path时，会将URL路径重写为/加上捕获到的分组内容（$1 对应path中(.*)匹配的部分）。若请求路径是/api/add则匹配第二条规则，(.*)会捕获add，也就是将/api/add重写为/add，并转发到后端服务的路径为/add，这样做是因为后端服务的路由只支持/add、/delete等，其路由中没有/api这个前缀；
+      # 而如果请求路径为/about时则匹配第一条规则，重写后的请求依旧为/about并转发至前端服务
 spec:
+  ingressClassName: nginx
   rules:
     - http:
         paths:
-          - path: /?(.*)
+          - path: /?(.*)  # 匹配以/开头的所有路径（包括根路径/和子路径如/home、/about等），将请求转发至前端服务，/?表示可选的/，(.*)表示捕获后续所有字符，用于重写
             pathType: ImplementationSpecific
             backend:
               service:
                 name: frontend-service
                 port:
                   number: 3000
-          - path: /api/?(.*)
+          - path: /api/?(.*)  # 匹配以/api开头的路径（如/api、/api/add、/api/delete等），将请求重写后转发至后端服务
             pathType: ImplementationSpecific
             backend:
               service:
                 name: backend-service
                 port:
                   number: 5000
-  ingressClassName: nginx
