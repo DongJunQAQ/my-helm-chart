@@ -11,7 +11,7 @@ metadata:
   name: pg-init-script
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: postgres
   labels:
@@ -34,6 +34,8 @@ spec:
         volumeMounts:
         - name: sqlscript
           mountPath: /docker-entrypoint-initdb.d
+        - name: db
+          mountPath: /var/lib/postgresql/18/docker
         env:
           - name: POSTGRES_USER
             value: "{{ .Values.postgre.adminUser }}"
@@ -45,6 +47,15 @@ spec:
         - name: sqlscript
           configMap:
             name: pg-init-script
+  volumeClaimTemplates:
+  - metadata:
+      name: db  # PVC模板名称
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: "nfs-client"  # 存储类的名称
+      resources:
+        requests:
+          storage: 5Gi
 ---
 apiVersion: v1
 kind: Service
@@ -53,7 +64,7 @@ metadata:
   labels:
     app: database
 spec:
-  type: ClusterIP
+  clusterIP: None
   selector:
     app: database
   ports:
