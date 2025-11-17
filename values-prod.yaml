@@ -12,6 +12,7 @@ backend:
 
 database:
   enabledPostgre: false  # 是否部署集群内部的数据库
-  uri: 192.168.246.188  # 连接外部数据库
+  uri: 192.168.246.188  # 外部数据库的地址
   username: "admin"
   password: "zdj7900802"
+  db: "web"

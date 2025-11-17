@@ -27,6 +27,8 @@ spec:
           value: "{{ .Values.database.username }}"
         - name: DATABASE_PASSWORD
           value: "{{ .Values.database.password }}"
+        - name: DATABASE_DB
+          value: "{{ .Values.database.db }}"
         resources:
           requests:
             memory: "128Mi"
