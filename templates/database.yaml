@@ -41,8 +41,6 @@ spec:
             value: "{{ .Values.postgre.adminUser }}"
           - name: POSTGRES_PASSWORD
             value: "{{ .Values.postgre.adminPassword }}"
-          - name: POSTGRES_DB
-            value: "{{ .Values.postgre.dbName }}"
       volumes:
         - name: sqlscript
           configMap:
